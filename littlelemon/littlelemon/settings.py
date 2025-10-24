@@ -41,8 +41,36 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'rest_framework',
+    'rest_framework.authtoken',
+    'djoser',
     'restaurant',
 ]
+
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework.authentication.TokenAuthentication',
+    ],
+    'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.AllowAny',  # Optional: require auth by default
+    ],
+}
+
+DJOSER = {
+    'USER_ID_FIELD': 'username',  # Use 'id' if you want to use user ID
+    'LOGIN_FIELD': 'username',    # or 'email' if you use email-based auth
+    'USER_CREATE_PASSWORD_RETYPE': True,  # Require password confirmation
+    'SEND_ACTIVATION_EMAIL': False,  # Set to True if using email activation
+    'SEND_CONFIRMATION_EMAIL': False,  # Set to True if using email confirmation
+    'PASSWORD_CHANGED_EMAIL_CONFIRMATION': False,
+    'TOKEN_MODEL': 'rest_framework.authtoken.models.Token',  # Use Token authentication
+    'SERIALIZERS': {
+        'user_create': 'djoser.serializers.UserCreateSerializer',
+        'user': 'djoser.serializers.UserSerializer',
+        'current_user': 'djoser.serializers.UserSerializer',
+        'token_create': 'djoser.serializers.TokenCreateSerializer',
+    },
+}
+
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',

@@ -18,12 +18,16 @@ from django.contrib import admin
 from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
+from rest_framework.authtoken import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('restaurant/', include('restaurant.urls')),
     path('api/', include('restaurant.urls')),  # Include your app's API URLs
     path('api-auth/', include('rest_framework.urls')),  # Add DRF login URLs
+    path('api-token-auth/', views.obtain_auth_token),
+    path('auth/', include('djoser.urls')),  # Djoser endpoints
+    path('auth/', include('djoser.urls.authtoken')),  # Token authentication endpoints
 ]
 
 if settings.DEBUG:
