@@ -22,6 +22,8 @@ from django.conf.urls.static import static
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('restaurant/', include('restaurant.urls')),
+    path('api/', include('restaurant.urls')),  # Include your app's API URLs
+    path('api-auth/', include('rest_framework.urls')),  # Add DRF login URLs
 ]
 
 if settings.DEBUG:
